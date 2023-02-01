@@ -118,3 +118,17 @@ deploy:
   stage: deploy
   script: echo "Define your deployment script!"
   environment: production
+
+push_to_github:
+  stage: deploy
+  script:
+      - git config user.email "$GITHUB_EMAIL"
+      - git config user.name "$GITHUB_USERNAME"
+      - git remote add github_origin https://playunits:$GITHUB_ACCESS_TOKEN@github.com/playunits/Pipeline.Net.git
+      - git add .
+      - git commit -m "$CI_COMMIT_MESSAGE"
+      - git push github_origin HEAD:master
+  only:
+    - release
+    - /^(release|Release)_[0-9]+(?:.[0-9]+)+$/
+
