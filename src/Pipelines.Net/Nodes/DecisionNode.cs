@@ -1,9 +1,9 @@
-﻿namespace Pipelines.Net
+﻿namespace Pipelines.Net.Nodes
 {
 
     public class DecisionNode : PipelineNode
     {
-        public static DecisionNode Create<T>(Func<T,bool?> predicate, INode? success, INode? failure)
+        public static DecisionNode Create<T>(Func<T, bool?> predicate, INode? success, INode? failure)
         {
             var tmp = (object? input) =>
             {
@@ -18,24 +18,24 @@
         public INode? SuccessNode { get; private set; }
         public INode? FailureNode { get; private set; }
 
-        public Func<object?,bool?> Determination { get; set; }
+        public Func<object?, bool?> Determination { get; set; }
 
         public DecisionNode(Func<object?, bool?> determination)
-        {            
+        {
             Determination = determination;
         }
 
         public DecisionNode(Func<object?, bool?> determination, INode? success, INode? failure)
         {
             Determination = determination;
-            this.SetSuccess(success);
-            this.SetFailure(failure);
+            SetSuccess(success);
+            SetFailure(failure);
         }
 
         public override async Task<object?> Run(object? input)
         {
             INode? node = null;
-            var result = this.Determination(input);
+            var result = Determination(input);
             if (result is null)
             {
                 return input;
@@ -44,11 +44,11 @@
             {
                 if (result.Value)
                 {
-                    node = this.SuccessNode;
+                    node = SuccessNode;
                 }
                 else
                 {
-                    node = this.FailureNode;
+                    node = FailureNode;
                 }
 
                 if (node is not null)
@@ -60,10 +60,10 @@
                     return input;
                 }
             }
-            
 
-            
-            
+
+
+
         }
 
         public void SetSuccess(INode? node)
@@ -73,7 +73,7 @@
                 node.Parent = this;
                 node.SplitExecutionTreeRoot = true;
             }
-            this.SuccessNode = node;
+            SuccessNode = node;
         }
 
         public void SetFailure(INode? node)
@@ -82,12 +82,12 @@
             {
                 node.Parent = this;
                 node.SplitExecutionTreeRoot = true;
-            }            
-            this.FailureNode = node;
+            }
+            FailureNode = node;
         }
     }
 
-    
+
 
 
 }

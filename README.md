@@ -32,6 +32,7 @@ Every Piece of Code utilizing Pipelines.Net needs to include the following using
 
 ```csharp
 using Pipelines.Net;
+using Pipelines.Net.Extensions;
 ```
 
 Pipelines can be created using an Factory Pattern:
@@ -52,20 +53,49 @@ var pipeline = new PipelineFactory()
 From default there are additional Items enabling a more complex possibility of building Pipelines:
 
 ```csharp
-var pipeline = new PipelineFactoy()
+var pipeline = new PipelineFactory()
     .AddDecision<int>(x => x >= 30, success => 
-        success.AddAction<int>((score) => $"Passed Test with a score of {score}")
+        success.AddAction<int>((score) => Console.WriteLine($"Passed Test with a score of {score}"))
             .AddAction<int>((score) => 6-5 * score / 100)
             .AddSplit(MergeConditions.AllFinished,
                 x => x.AddAction<int>((grade) => Console.WriteLine($"Grade: {grade}")),
-                x => x.AddAction<int>(() => Console.WriteLine("Storing Grade on Server"))
-                    .Wait(3000) // Simulate some sort of Time consuming Action
+                x => x.AddAction(() => Console.WriteLine("Storing Grade on Server"))
+                    .AddAction(() => Thread.Sleep(3000))// Simulate some sort of Time consuming Action                    
             )
-            .AddAction(() => $"Grading and uploading has finished")
+            .AddAction(() => Console.WriteLine($"Grading and uploading has finished"))
         ,failure => failure.AddAction((score) => Console.WriteLine($"Score of {score} does not qualify as a passing score"))
-    ).Build();        
+    ).Build();      
 ```
 
+The Pipeline can then be run like this:
+
+```csharp
+await pipeline.Run(56);
+```
+
+and the Output will look like this:
+
+```bat
+Passed Test with a score of 56
+Grade: 4
+Storing Grade on Server
+Grading and uploading has finished
+```
+
+You can also run the same Pipeline multiple times using different Inputs:
+
+```csharp
+await pipeline.Run(98);
+```
+
+that will result in different Outputs
+
+```bat
+Passed Test with a score of 98
+Grade: 2
+Storing Grade on Server
+Grading and uploading has finished
+```
 
 Head to the [wiki]() for more examples, or [check out the code of the example project]().
 

@@ -1,48 +1,48 @@
 ﻿using System.Threading.Tasks;
 
-namespace Pipelines.Net
+namespace Pipelines.Net.Nodes
 {
 
     public class SplitNode : PipelineNode
-    {        
+    {
         private List<Task> Tasks { get; set; } = new List<Task>();
 
         public List<INode> SubProcesses { get; private set; } = new List<INode>();
         public MergeConditions Conditions { get; set; }
         public SplitNode(MergeConditions conditions)
-        {            
-            this.Conditions = conditions;
+        {
+            Conditions = conditions;
         }
 
         public SplitNode(MergeConditions conditions, IEnumerable<INode> subprocesses)
         {
-            this.Conditions = conditions;
-            this.AddSubProcesses(subprocesses);
+            Conditions = conditions;
+            AddSubProcesses(subprocesses);
         }
 
         public SplitNode(MergeConditions conditions, INode subprocess)
         {
-            this.Conditions = conditions;
-            this.AddSubProcess(subprocess);
+            Conditions = conditions;
+            AddSubProcess(subprocess);
         }
 
         public override async Task<object?> Run(object? input)
         {
-            foreach (var pipeline in this.SubProcesses)
+            foreach (var pipeline in SubProcesses)
             {
-                var task = pipeline.Run(input);                
-                this.Tasks.Add(task);
+                var task = pipeline.Run(input);
+                Tasks.Add(task);
             }
 
             Task bundleTask = Task.CompletedTask;
-            switch (this.Conditions)
+            switch (Conditions)
             {
                 default:
                 case MergeConditions.AllFinished:
-                    bundleTask = Task.WhenAll(this.Tasks);
+                    bundleTask = Task.WhenAll(Tasks);
                     break;
                 case MergeConditions.AnyFinished:
-                    bundleTask = Task.WhenAny(this.Tasks);
+                    bundleTask = Task.WhenAny(Tasks);
                     break;
                 case MergeConditions.FireAndForget:
                     bundleTask = Task.CompletedTask;
@@ -61,8 +61,8 @@ namespace Pipelines.Net
             }
             else
             {
-                this.Child = node;
-                node.Parent = this;                
+                Child = node;
+                node.Parent = this;
             }
         }
 
@@ -70,19 +70,19 @@ namespace Pipelines.Net
         {
             node.Parent = this;
             node.SplitExecutionTreeRoot = true;
-            this.SubProcesses.Add(node);
+            SubProcesses.Add(node);
         }
 
         public void AddSubProcesses(IEnumerable<INode> nodes)
         {
             foreach (var node in nodes)
             {
-                this.AddSubProcess(node);
+                AddSubProcess(node);
             }
         }
     }
 
-    
+
 
 
 }

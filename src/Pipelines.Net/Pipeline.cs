@@ -1,19 +1,13 @@
 ﻿namespace Pipelines.Net
 {
-    public class Pipeline : IPipeline
+    public class Pipeline
     {
-        public INode? Child { get; set; }
-        public INode? Parent { get; set; }
+        public INode? StartElement { get; set; }        
         public bool SplitExecutionTreeRoot { get; set; }
 
         public Pipeline()
         {
             this.SplitExecutionTreeRoot = true;
-        }
-
-        public void Append(INode node)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<object?> Run()
@@ -23,19 +17,14 @@
 
         public Task<object?> Run(object? input)
         {
-            if (this.Child is not null)
+            if (this.StartElement is not null)
             {
-                return this.Child.Run(input);
+                return this.StartElement.Run(input);
             }
             else
             {
                 return Task.FromResult<object?>(null);
             }
-        }
-
-        public INode? SearchUp(Func<INode, bool> search, bool searchOnSelf = false)
-        {
-            throw new NotImplementedException();
         }
     }
 }

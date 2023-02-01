@@ -1,4 +1,4 @@
-﻿namespace Pipelines.Net
+﻿namespace Pipelines.Net.Nodes
 {
     public class GotoNode : PipelineNode
     {
@@ -6,7 +6,7 @@
 
         public GotoNode(INode target)
         {
-            this.Target = target;
+            Target = target;
         }
 
         public override Task<object?> Run(object? input)
@@ -15,7 +15,7 @@
         }
     }
 
-    
+
 
 
 }

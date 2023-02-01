@@ -1,4 +1,4 @@
-﻿namespace Pipelines.Net
+﻿namespace Pipelines.Net.Nodes
 {
     public class PipelineNode : INode
     {
@@ -8,7 +8,7 @@
 
         public virtual void Append(INode node)
         {
-            if (this.Child is not null)
+            if (Child is not null)
             {
                 throw new InvalidOperationException("This node already has a child");
             }
@@ -18,16 +18,16 @@
             }
             else
             {
-                this.Child = node;
+                Child = node;
                 node.Parent = this;
             }
         }
 
         public virtual Task<object?> Run(object? input)
         {
-            if (this.Child is not null)
+            if (Child is not null)
             {
-                return this.Child.Run(input);
+                return Child.Run(input);
             }
             return Task.FromResult(input);
         }
@@ -42,15 +42,15 @@
                 }
             }
 
-            if (this.Parent is not null)
+            if (Parent is not null)
             {
-                if (search(this.Parent))
+                if (search(Parent))
                 {
-                    return this.Parent;
+                    return Parent;
                 }
                 else
                 {
-                    return this.Parent.SearchUp(search, searchOnSelf);
+                    return Parent.SearchUp(search, searchOnSelf);
                 }
             }
             else

@@ -1,22 +1,22 @@
-﻿namespace Pipelines.Net
-{    
+﻿namespace Pipelines.Net.Nodes
+{
     public class ResumeNode : PipelineNode
     {
         public int ResumationLevel { get; set; } = 1;
         public ResumeNode()
         {
-            this.SplitExecutionTreeRoot = false;
+            SplitExecutionTreeRoot = false;
         }
 
         public ResumeNode(int resumationLevel) : this()
         {
-            this.ResumationLevel = resumationLevel;
+            ResumationLevel = resumationLevel;
         }
 
         public override Task<object?> Run(object? input)
         {
             INode? node = null;
-            for (int i = 0; i<this.ResumationLevel; i++)
+            for (int i = 0; i < ResumationLevel; i++)
             {
                 var searchNode = node;
 
@@ -32,8 +32,8 @@
                 }
                 else
                 {
-                    throw new InvalidOperationException($"No Split Execution Trees could be found on Level {i+1}");
-                }                
+                    throw new InvalidOperationException($"No Split Execution Trees could be found on Level {i + 1}");
+                }
             }
             //var node = this.SearchUp(x => x.SplitExecutionTreeRoot);
 
@@ -52,11 +52,11 @@
                     }
                 }
             }
-            throw new InvalidOperationException("Trying to resume Tree that does not exist");            
+            throw new InvalidOperationException("Trying to resume Tree that does not exist");
         }
     }
 
-    
+
 
 
 }
