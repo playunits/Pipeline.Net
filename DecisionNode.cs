@@ -3,6 +3,18 @@
 
     public class DecisionNode : PipelineNode
     {
+        public static DecisionNode Create<T>(Func<T,bool?> predicate, INode? success, INode? failure)
+        {
+            var tmp = (object? input) =>
+            {
+                var args = TypeConverter.Convert<T>(input);
+
+                return predicate(args);
+            };
+
+            return new DecisionNode(tmp, success, failure);
+        }
+
         public INode? SuccessNode { get; private set; }
         public INode? FailureNode { get; private set; }
 

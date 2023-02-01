@@ -5,32 +5,21 @@ namespace Pipelines.Net
 
     public class DefaultPipelineBuilder : IPipelineBuilder<Pipeline>
     {
-        public INode? Parent { get; set; }
+        public INode? Parent { get; set; }        
 
-        private bool isFirst = true;
-
-        private INode? StartElement;
-
-        private INode? tmpStorage;
+        private INode? StartElement;        
 
         private void Append(INode element)
         {
-            if (isFirst)
+            if (this.StartElement is null)
             {
-                this.StartElement = element;
-                this.isFirst = false;
+                this.StartElement = element;                
             }
 
             if (Parent is not null)
             {
                 Parent.Append(element);
             }
-
-            if (tmpStorage is not null)
-            {
-                this.tmpStorage = element;
-            }
-
             Parent = element;
         }
 
@@ -39,24 +28,7 @@ namespace Pipelines.Net
             this.Append(node);
             return this;
         }
-        public IPipelineBuilder<Pipeline> AddAction(Action action, out INode result)
-        {
-            result = new ActionNode(action);            
-            this.Append(result);
-            return this;
-        }
-
-        public IPipelineBuilder<Pipeline> AddAction(Action action)
-        {
-            return this.AddAction(action, out INode _);
-        }
-
-        public IPipelineBuilder<Pipeline> AddAction(Action<INode> action)
-        {
-            var node = new ActionNode(action);
-            this.Append(node);
-            return this;
-        }
+        
 
         public IPipelineBuilder<Pipeline> AddSplit(MergeConditions mergeCondition, params Action<IPipelineBuilder<Pipeline>>[] builders)
         {
@@ -82,7 +54,7 @@ namespace Pipelines.Net
             return this;
         }
 
-        public IPipelineBuilder<Pipeline> AddDecision(Func<object?, bool?> determination, Action<IPipelineBuilder<Pipeline>> success, Action<IPipelineBuilder<Pipeline>> failure)
+        public IPipelineBuilder<Pipeline> AddDecision<T>(Func<T, bool?> determination, Action<IPipelineBuilder<Pipeline>> success, Action<IPipelineBuilder<Pipeline>> failure)
         {
             var successBuilder = new DefaultPipelineBuilder();
             success(successBuilder);
@@ -93,15 +65,14 @@ namespace Pipelines.Net
             return this.AddDecision(determination, successBuilder.Build(), failureBuilder.Build());
         }
 
-        public IPipelineBuilder<Pipeline> AddDecision(Func<object?, bool?> determination, Pipeline success, Pipeline failure)
+        public IPipelineBuilder<Pipeline> AddDecision<T>(Func<T, bool?> determination, Pipeline success, Pipeline failure)
         {
             return this.AddDecision(determination, success.Child, failure.Child);
         }
 
-        public IPipelineBuilder<Pipeline> AddDecision(Func<object?, bool?> determination, INode? success, INode? failure)
+        public IPipelineBuilder<Pipeline> AddDecision<T>(Func<T, bool?> determination, INode? success, INode? failure)
         {
-            var decisionNode = new DecisionNode(determination, success, failure);
-            this.Append(decisionNode);
+            this.Append(DecisionNode.Create(determination, success, failure));
             return this;
         }
 
@@ -124,53 +95,64 @@ namespace Pipelines.Net
             var pipeline = new Pipeline();
             pipeline.Child = this.GetStartElement();
 
+            this.Reset();
+
             return pipeline;
         }
 
         public INode? GetStartElement() => this.StartElement;
 
-        public IPipelineBuilder<Pipeline> AddAction(Action<object?> action)
+        public IPipelineBuilder<Pipeline> AddAction(Action action)
         {
-            var node = new ActionNode(action);
-            this.Append(node);
+            this.Append(ActionNode.Create(action));
+            return this;
+        }
+
+        public IPipelineBuilder<Pipeline> AddAction(Action<INode> action)
+        {
+            this.Append(ActionNode.Create(action));
+            return this;
+        }
+
+        public IPipelineBuilder<Pipeline> AddAction<T>(Action<T> action)
+        {
+            this.Append(ActionNode.Create(action));
+            return this;
+        }
+
+        public IPipelineBuilder<Pipeline> AddAction<T>(Action<INode, T> action)
+        {
+            this.Append(ActionNode.Create(action));
             return this;
         }
 
         public IPipelineBuilder<Pipeline> AddAction(Func<object?> action)
         {
-            var node = new ActionNode(action);
-            this.Append(node);
+            this.Append(ActionNode.Create(action));
             return this;
         }
-
-        public IPipelineBuilder<Pipeline> AddAction(Func<object?, object?> action)
-        {
-            var node = new ActionNode(action);
-            this.Append(node);
-            return this;
-        }
-
         public IPipelineBuilder<Pipeline> AddAction(Func<INode, object?> action)
         {
-            var node = new ActionNode(action);
-            this.Append(node);
+            this.Append(ActionNode.Create(action));
             return this;
         }
 
-        public IPipelineBuilder<Pipeline> AddAction(Func<INode, object?, object?> action)
+        public IPipelineBuilder<Pipeline> AddAction<T>(Func<T, object?> action)
         {
-            var node = new ActionNode(action);
-            this.Append(node);
+            this.Append(ActionNode.Create(action));
+            return this;
+        }
+
+
+        public IPipelineBuilder<Pipeline> AddAction<T>(Func<INode, T, object?> action)
+        {
+            this.Append(ActionNode.Create(action));
             return this;
         }
 
         public IPipelineBuilder<Pipeline> Input(object? value)
         {
-            var node = new ActionNode((INode x, object? y) =>
-            {
-                return value;
-            });
-            this.Append(node);
+            this.Append(ActionNode.Create(() => value));
             return this;
         }
 
@@ -202,11 +184,7 @@ namespace Pipelines.Net
 
         public IPipelineBuilder<Pipeline> Wait(TimeSpan timespan)
         {
-            var node = new ActionNode(() =>
-            {
-                Thread.Sleep(timespan);
-            });
-            this.Append(node);
+            this.Append(ActionNode.Create(() => Thread.Sleep(timespan)));            
             return this;
         }
 
@@ -215,6 +193,23 @@ namespace Pipelines.Net
             var gotoNode = new GotoNode(node);
             this.Append(gotoNode);
             return this;
+        }
+
+        public IPipelineBuilder<Pipeline> Output(string output)
+        {
+            this.Append(ActionNode.Create(() => Console.WriteLine(output)));
+            return this;
+        }
+
+        private void Reset()
+        {
+            this.Parent = null;
+            this.StartElement = null;
+        }
+
+        public DefaultPipelineBuilder()
+        {
+            this.Reset();
         }
     }
 }

@@ -16,7 +16,7 @@
             throw new NotImplementedException();
         }
 
-        public Task Run()
+        public Task<object?> Run()
         {
             return this.Run(null);
         }
