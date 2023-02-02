@@ -24,12 +24,12 @@ image: mcr.microsoft.com/dotnet/sdk:7.0
 #
 variables:
   # 1) Name of directory where restore and build objects are stored.
-  OBJECTS_DIRECTORY: 'obj'
+  OBJECTS_DIRECTORY: 'src/Pipelines.Net/obj'
   # 2) Name of directory used for keeping restored dependencies.
-  NUGET_PACKAGES_DIRECTORY: '.nuget'
+  NUGET_PACKAGES_DIRECTORY: 'src/.nuget'
   # 3) A relative path to the source code from project repository root.
   # NOTE: Please edit this path so it matches the structure of your project!
-  SOURCE_CODE_PATH: '/src/Pipelines.Net/'
+  SOURCE_CODE_PATH: 'src/'
 
 # ### Define global cache rule
 #
@@ -85,7 +85,7 @@ cache:
 #
 # Learn more about GitLab cache: https://docs.gitlab.com/ee/ci/caching/index.html
 before_script:
-  - 'dotnet restore --packages $NUGET_PACKAGES_DIRECTORY'
+  - 'dotnet restore $SOURCE_CODE_PATH --packages $NUGET_PACKAGES_DIRECTORY'
 
 build:
   stage: build
@@ -100,7 +100,7 @@ build:
   # Only one project path can be passed as a parameter to 'dotnet build' command.
   script:
     - echo "$SOURCE_CODE_PATH"
-    - 'dotnet build --no-restore'
+    - 'dotnet build $SOURCE_CODE_PATH --no-restore'
 
 tests:
   stage: test
