@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Pipelines.Net.Nodes
+namespace Pipes.Net.Nodes
 {
 
     public class SplitNode : PipelineNode

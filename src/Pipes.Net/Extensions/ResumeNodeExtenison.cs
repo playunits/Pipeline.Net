@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Pipelines.Net.Nodes;
+using Pipes.Net.Nodes;
 
-namespace Pipelines.Net.Extensions
+namespace Pipes.Net.Extensions
 {
     public static class ResumeNodeExtenison
     {

@@ -1,7 +1,7 @@
 ﻿using System;
-using Pipelines.Net.Nodes;
+using Pipes.Net.Nodes;
 
-namespace Pipelines.Net
+namespace Pipes.Net
 {
 
     public class PipelineFactory

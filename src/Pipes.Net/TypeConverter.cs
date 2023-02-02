@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Pipelines.Net
+namespace Pipes.Net
 {
     public static class TypeConverter
     {

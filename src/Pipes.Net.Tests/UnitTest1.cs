@@ -1,4 +1,4 @@
-namespace Pipelines.Net.Tests
+namespace Pipes.Net.Tests
 {
     [TestClass]
     public class UnitTest1
