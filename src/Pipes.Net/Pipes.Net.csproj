@@ -8,7 +8,33 @@
 		<BaseOutputPath>build\</BaseOutputPath>		
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Version>0.1.0</Version>		
 	</PropertyGroup>
+	<PropertyGroup>
+		<Version>0.1.0</Version>
+		<Authors>Juri Scholz</Authors>
+		<Company>Juri Scholz</Company>
+		<PackageTags>Pipeline</PackageTags>
+		<Description>Pipelines.Net aims to bundle reoccuring simple workflows in an interactive object structure.
+It can be easily extended with new nodes and features, as well as modifying the existing features to match any challenges.
+		</Description>
+		<Title>Pipes.Net</Title>
+		<PackageProjectUrl>https://github.com/playunits/Pipes.Net</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/playunits/Pipes.Net</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<Copyright>Copyright (c) 2023-Present Juri Scholz</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>		
+	</PropertyGroup>
+	<ItemGroup>
+	  <None Include="..\..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
