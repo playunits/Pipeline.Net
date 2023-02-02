@@ -1,4 +1,4 @@
-# Pipelines.Net
+# Pipes.Net
 
 ||Badge|
 |------|:------:|
@@ -7,7 +7,7 @@
 |**Issues**|[![](https://img.shields.io/github/issues/VkNet/Vk.svg)](https://github.com/vknet/vk/issues)| -->
 <!-- |**Nuget**|[![](http://img.shields.io/nuget/v/VkNet.svg)](http://www.nuget.org/packages/VkNet) -->
 
-Pipelines.Net aims to bundle reoccuring simple workflows in an interactive object structure.
+Pipes.Net aims to bundle reoccuring simple workflows in an interactive object structure.
 
 It can be easily extended with new nodes and features, as well as modifying the existing features to match any challenges.
 
@@ -17,22 +17,22 @@ It can be easily extended with new nodes and features, as well as modifying the 
 The library is published to [NuGet]() and can be installed through the .NET CLI
 
 ```bat
-> dotnet add package Pipelines.Net
+> dotnet add package Pipes.Net
 ```
 
 or the [Visual Studio Package Manager](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 
 ```powershell
-PM> Install-Package pipelines.net
+PM> Install-Package Pipes.Net
 ```
 
 ## Getting Started
 
-Every Piece of Code utilizing Pipelines.Net needs to include the following using clauses:
+Every Piece of Code utilizing Pipes.Net needs to include the following using clauses:
 
 ```csharp
-using Pipelines.Net;
-using Pipelines.Net.Extensions;
+using Pipes.Net;
+using Pipes.Net.Extensions;
 ```
 
 Pipelines can be created using an Factory Pattern:
