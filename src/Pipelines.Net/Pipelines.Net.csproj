@@ -5,8 +5,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<Platforms>AnyCPU</Platforms>
-		<BaseOutputPath>..\build\Pipelines.Net\</BaseOutputPath>		
-		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>		
+		<BaseOutputPath>build\</BaseOutputPath>		
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Version>0.1.0</Version>		
 	</PropertyGroup>
 
