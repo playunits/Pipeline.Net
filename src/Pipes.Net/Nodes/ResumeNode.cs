@@ -1,4 +1,4 @@
-﻿namespace Pipelines.Net.Nodes
+﻿namespace Pipes.Net.Nodes
 {
     public class ResumeNode : PipelineNode
     {

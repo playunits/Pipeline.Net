@@ -1,4 +1,4 @@
-﻿namespace Pipelines.Net
+﻿namespace Pipes.Net
 {
     public interface IPipelineFactory<T> where T : IPipeline
     {

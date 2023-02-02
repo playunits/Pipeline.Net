@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Pipelines.Net
+namespace Pipes.Net
 {
     public interface INode
     {

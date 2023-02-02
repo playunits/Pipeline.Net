@@ -1,4 +1,4 @@
-﻿namespace Pipelines.Net.Example
+﻿namespace Pipes.Net.Example
 {
     internal class Program
     {

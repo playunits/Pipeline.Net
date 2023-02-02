@@ -1,4 +1,4 @@
-# Pipelines.Net
+# Pipes.Net
 
 ||Badge|
 |------|:------:|
@@ -7,32 +7,32 @@
 |**Issues**|[![](https://img.shields.io/github/issues/VkNet/Vk.svg)](https://github.com/vknet/vk/issues)| -->
 <!-- |**Nuget**|[![](http://img.shields.io/nuget/v/VkNet.svg)](http://www.nuget.org/packages/VkNet) -->
 
-Pipelines.Net aims to bundle reoccuring simple workflows in an interactive object structure.
+Pipes.Net aims to bundle reoccuring simple workflows in an interactive object structure.
 
 It can be easily extended with new nodes and features, as well as modifying the existing features to match any challenges.
 
 
 ## Installation
 
-The library is published to [NuGet]() and can be installed through the .NET CLI
+The library is published to [NuGet](https://www.nuget.org/packages/Pipes.Net/0.1.0) and can be installed through the .NET CLI
 
 ```bat
-> dotnet add package Pipelines.Net
+> dotnet add package Pipes.Net
 ```
 
 or the [Visual Studio Package Manager](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 
 ```powershell
-PM> Install-Package pipelines.net
+PM> Install-Package Pipes.Net
 ```
 
 ## Getting Started
 
-Every Piece of Code utilizing Pipelines.Net needs to include the following using clauses:
+Every Piece of Code utilizing Pipes.Net needs to include the following using clauses:
 
 ```csharp
-using Pipelines.Net;
-using Pipelines.Net.Extensions;
+using Pipes.Net;
+using Pipes.Net.Extensions;
 ```
 
 Pipelines can be created using an Factory Pattern:
@@ -97,9 +97,9 @@ Storing Grade on Server
 Grading and uploading has finished
 ```
 
-Head to the [wiki]() for more examples, or [check out the code of the example project]().
+Head to the [wiki](https://github.com/playunits/Pipes.Net/wiki) for more examples, or [check out the code of the example project](https://github.com/playunits/Pipes.Net/tree/master/src/Pipes.Net.Example).
 
 ## Contributing
-You are welcome to share any improvement Ideas or Bugs you encoutered in the [issues page]().
+You are welcome to share any improvement Ideas or Bugs you encoutered in the [issues page](https://github.com/playunits/Pipes.Net/issues/new).
 
 It is greatly appreciated if you take the time to fork and contribute to this project.
