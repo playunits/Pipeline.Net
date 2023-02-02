@@ -14,7 +14,7 @@ It can be easily extended with new nodes and features, as well as modifying the 
 
 ## Installation
 
-The library is published to [NuGet]() and can be installed through the .NET CLI
+The library is published to [NuGet](https://www.nuget.org/packages/Pipes.Net/0.1.0) and can be installed through the .NET CLI
 
 ```bat
 > dotnet add package Pipes.Net
@@ -97,9 +97,9 @@ Storing Grade on Server
 Grading and uploading has finished
 ```
 
-Head to the [wiki]() for more examples, or [check out the code of the example project]().
+Head to the [wiki](https://github.com/playunits/Pipes.Net/wiki) for more examples, or [check out the code of the example project](https://github.com/playunits/Pipes.Net/tree/master/src/Pipes.Net.Example).
 
 ## Contributing
-You are welcome to share any improvement Ideas or Bugs you encoutered in the [issues page]().
+You are welcome to share any improvement Ideas or Bugs you encoutered in the [issues page](https://github.com/playunits/Pipes.Net/issues/new).
 
 It is greatly appreciated if you take the time to fork and contribute to this project.
