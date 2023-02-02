@@ -101,6 +101,12 @@ build:
   script:
     - echo "$SOURCE_CODE_PATH"
     - 'dotnet build $SOURCE_CODE_PATH --no-restore'
+  artifacts:
+    untracked: false
+    when: on_success
+    expire_in: 30 days
+    paths:
+      - "$SOURCE_CODE_PATH/Pipelines.Net/build/"      
 
 tests:
   stage: test
@@ -113,7 +119,7 @@ tests:
   # You may want to define separate testing jobs for different types of testing
   # (e.g. integration tests, unit tests etc).
   script:
-    - 'dotnet test --no-restore'
+    - 'dotnet test $SOURCE_CODE_PATH --no-restore'
 
 deploy:
   stage: deploy
