@@ -3,9 +3,9 @@
 ||Badge|
 |------|:------:|
 |**Target Frameworks**|[![Targets](https://img.shields.io/badge/.NET%20-7-green.svg)](https://learn.microsoft.com/en-us/dotnet/core/introduction)|
-<!-- |**Downloads**|[![](https://img.shields.io/nuget/dt/VkNet.svg)](https://www.nuget.org/packages/VkNet/)|
-|**Issues**|[![](https://img.shields.io/github/issues/VkNet/Vk.svg)](https://github.com/vknet/vk/issues)| -->
-<!-- |**Nuget**|[![](http://img.shields.io/nuget/v/VkNet.svg)](http://www.nuget.org/packages/VkNet) -->
+|**Downloads**|[![](https://img.shields.io/nuget/dt/Pipes.Net.svg)](https://www.nuget.org/packages/Pipes.Net/)|
+|**Issues**|[![](https://img.shields.io/github/issues/playunits/Pipes.Net.svg)](https://github.com/playunits/Pipes.Net/issues)|
+|**Version**|[![](https://img.shields.io/nuget/v/Pipes.Net.svg)](https://www.nuget.org/packages/Pipes.Net/)|
 
 Pipes.Net aims to bundle reoccuring simple workflows in an interactive object structure.
 
